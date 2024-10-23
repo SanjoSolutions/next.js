@@ -4682,11 +4682,10 @@
         "edge-render-getserversideprops should have correct query/params on rewrite",
         "edge-render-getserversideprops should have data routes in routes-manifest",
         "edge-render-getserversideprops should respond to _next/data for [id] correctly",
-        "edge-render-getserversideprops should respond to _next/data for index correctly"
-      ],
-      "failed": [
+        "edge-render-getserversideprops should respond to _next/data for index correctly",
         "edge-render-getserversideprops should not output trace files for edge routes"
       ],
+      "failed": [],
       "pending": [],
       "flakey": [],
       "runtimeError": false
@@ -6296,10 +6295,10 @@
         "streaming SSR with custom next configs should render styled-jsx styles in streaming",
         "streaming SSR with custom server should render page correctly under custom server"
       ],
-      "failed": [
+      "failed": [],
+      "pending": [
         "react 18 streaming SSR in minimal mode with node runtime should pass correct nextRuntime values"
       ],
-      "pending": [],
       "flakey": [],
       "runtimeError": false
     },
