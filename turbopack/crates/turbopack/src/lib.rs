@@ -710,7 +710,8 @@ impl AssetContext for ModuleAssetContext {
         let mut result = self.process_resolve_result(
             result.resolve().await?,
             reference_type,
-            request.request_pattern().await?.has_dynamic_parts(),
+            // TODO
+            // request.request_pattern().await?.has_dynamic_parts(),
         );
 
         if *self.is_types_resolving_enabled().await? {
@@ -730,7 +731,6 @@ impl AssetContext for ModuleAssetContext {
         self: Vc<Self>,
         result: Vc<ResolveResult>,
         reference_type: Value<ReferenceType>,
-        ignore_unknown: bool,
     ) -> Result<Vc<ModuleResolveResult>> {
         let this = self.await?;
 
@@ -756,10 +756,7 @@ impl AssetContext for ModuleAssetContext {
                                     ModuleResolveResultItem::Module(*module)
                                 }
                                 ProcessResult::Unknown(source) => {
-                                    if !ignore_unknown {
-                                        ProcessResult::emit_unknown_error(*source).await?;
-                                    }
-                                    ModuleResolveResultItem::Ignore
+                                    ModuleResolveResultItem::Unknown(*source)
                                 }
                                 ProcessResult::Ignore => ModuleResolveResultItem::Ignore,
                             }
@@ -802,7 +799,7 @@ impl AssetContext for ModuleAssetContext {
                                                 })
                                                 .chain(
                                                     external_result
-                                                        .primary_modules_iter()
+                                                        .primary_modules_raw_iter()
                                                         .map(|rvc| *rvc),
                                                 );
 

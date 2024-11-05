@@ -140,7 +140,7 @@ pub async fn referenced_modules_and_affecting_sources(
         .try_join()
         .await?;
     for resolve_result in resolve_results {
-        modules.extend(resolve_result.primary_modules_iter());
+        modules.extend(resolve_result.primary_modules_raw_iter());
         modules.extend(
             resolve_result
                 .affecting_sources_iter()
