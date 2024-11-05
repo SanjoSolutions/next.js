@@ -239,7 +239,9 @@ pub async fn get_next_client_import_map(
 
 /// Computes the Next-specific client import map.
 #[turbo_tasks::function]
-pub async fn get_next_build_import_map(project_path: ResolvedVc<FileSystemPath>) -> Result<Vc<ImportMap>> {
+pub async fn get_next_build_import_map(
+    project_path: ResolvedVc<FileSystemPath>,
+) -> Result<Vc<ImportMap>> {
     let mut import_map = ImportMap::empty();
 
     insert_package_alias(
@@ -335,8 +337,7 @@ pub async fn get_next_server_import_map(
     let external = ImportMapping::External(
         None,
         ExternalType::CommonJs,
-        // TODO(arlyon): wiring up in a follow up PR
-        ExternalTraced::Untraced,
+        ExternalTraced::Traced(project_path),
         None,
     )
     .resolved_cell();
