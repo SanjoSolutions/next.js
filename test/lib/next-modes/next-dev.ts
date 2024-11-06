@@ -175,17 +175,13 @@ export class NextDevInstance extends NextInstance {
             }
           })
         } else {
-          try {
-            await retry(async () => {
-              const cliOutput = this.cliOutput.slice(cliOutputLength)
+          await retry(async () => {
+            const cliOutput = this.cliOutput.slice(cliOutputLength)
 
-              if (!this.serverCompiledPattern.test(cliOutput)) {
-                throw new Error('Server has not finished restarting.')
-              }
-            }, 5000)
-          } catch (e) {
-            /** Fail silently because not all change will be reflected in the server output */
-          }
+            if (!this.serverCompiledPattern.test(cliOutput)) {
+              throw new Error('Server has not finished restarting.')
+            }
+          }, 5000)
         }
       }
     }
@@ -198,7 +194,7 @@ export class NextDevInstance extends NextInstance {
     }
 
     const { newFile } = await super.patchFile(filename, content)
-    await retry(() => waitForChanges({ newFile }))
+    await waitForChanges({ newFile })
 
     return { newFile }
   }

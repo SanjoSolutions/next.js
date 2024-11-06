@@ -74,7 +74,7 @@ export class NextInstance {
   public forcedPort?: string
   public dirSuffix: string = ''
   public serverReadyPattern?: RegExp = / ✓ Ready in /
-  public serverCompiledPattern?: RegExp = / ✓ Compiled /
+  public serverCompiledPattern?: RegExp = /✓|⨯/
 
   constructor(opts: NextInstanceOpts) {
     this.env = {}
